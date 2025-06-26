@@ -207,16 +207,16 @@ dim = [.2 .5 .3 .3];
 str = 'Blue: E1S|H1S. Green: E1P|H1S. Red: E2S|H1S';
 annotation('textbox', dim, 'String', str, 'FitBoxToText', 'on'); 
 xlabel('r(nm)');ylabel('r^2*Y(r)^2');
-fprintf("Exciton energies 1Se|1Sh %f\n",EnergyE1SH1S);
-fprintf("Exciton energies 1Pe|1Sh %f\n",EnergyE1PH1S);
-fprintf("Exciton energies 2Se|1Sh %f\n",EnergyE2SH1S);
-fprintf("Bixciton energies 1Se1Se|1Sh1Sh %f Binding energy %f \n",BE1S1S,E1s1s+Eh1sh1s+2*E1sh1s);
-fprintf("Bixciton energies 1Pe(z)1Pe(z)|1Sh1Sh %f Binding energy %f \n",BE1PE1Pzz,E1p1pzz+Eh1ph1p+2*E1ph1p);
-fprintf("Bixciton energies 1Pe(z)1Pe(x,y)|1Sh1Sh %f Binding energy %f \n",BE1PE1Pzx,E1p1pzx+Eh1ph1p+2*E1ph1p);
-fprintf("Bixciton energies 2Se2Se|1Sh1Sh %f Binding energy %f \n",BE2SE2S,E2s2s+Eh2sh2s+2*E2sh2s);
-fprintf("Bixciton energies 2Se1Se|1Sh1Sh %f Binding energy %f \n",BE1SE2S,E1s2s+Eh1sh2s+1/2*E1sh2s+E2sh1s);
-fprintf("Bixciton energies 1Pe1Se|1Sh1Sh %f Binding energy %f \n",BE1SE1P,E1s1p+Eh1sh1p+1/2*E1sh1p+E1ph1s);
-fprintf("Bixciton energies 1Pe2Se|1Sh1Sh %f Binding energy %f \n",BE1PE2S,E1p2s+Eh1ph2s+1/2*E1ph2s+E2sh1p);
+fprintf("Exciton energy 1Se|1Sh %f eV\n",EnergyE1SH1S);
+fprintf("Exciton energy 1Pe|1Sh %f eV\n",EnergyE1PH1S);
+fprintf("Exciton energy 2Se|1Sh %f eV\n",EnergyE2SH1S);
+fprintf("Bixciton energy 1Se1Se|1Sh1Sh %f Binding energy %f eV\n",BE1S1S,E1s1s+Eh1sh1s+2*E1sh1s);
+fprintf("Bixciton energy 1Pe(z)1Pe(z)|1Sh1Sh %f Binding energy %f eV\n",BE1PE1Pzz,E1p1pzz+Eh1ph1p+2*E1ph1p);
+fprintf("Bixciton energy 1Pe(z)1Pe(x,y)|1Sh1Sh %f Binding energy %f eV\n",BE1PE1Pzx,E1p1pzx+Eh1ph1p+2*E1ph1p);
+fprintf("Bixciton energy 2Se2Se|1Sh1Sh %f Binding energy %f eV\n",BE2SE2S,E2s2s+Eh2sh2s+2*E2sh2s);
+fprintf("Bixciton energy 2Se1Se|1Sh1Sh %f Binding energy %f eV\n",BE1SE2S,E1s2s+Eh1sh2s+1/2*E1sh2s+E2sh1s);
+fprintf("Bixciton energy 1Pe1Se|1Sh1Sh %f Binding energy %f eV \n",BE1SE1P,E1s1p+Eh1sh1p+1/2*E1sh1p+E1ph1s);
+fprintf("Bixciton energy 1Pe2Se|1Sh1Sh %f Binding energy %f eV\n",BE1PE2S,E1p2s+Eh1ph2s+1/2*E1ph2s+E2sh1p);
 
 
 
@@ -279,12 +279,12 @@ function [E1S]=CdSeCdS_E1SH1S(VXe,me,Uh,lengsim,delr)
     
     % MATLAB doesn't necessary present the eigenvalues and vectors in order. 
     % This part of the code addresses that:
-    [d_sorted, idx] = sort(diag(D), 'ascend');
-    Ds = diag(d_sorted);
+    [d_notserp, idx] = sort(diag(D), 'ascend');
+    Eens = diag(d_notserp);
     Vs = V(:, idx);
     
     %Lowest energy eigenvalue and eigenvector:
-    E1S=Ds(1,1);
+    E1S=Eens(1,1);
     WF_E1SH1S=Vs(:,1)/Vs(1,1);%this is done to flip the WF over if it is negative
     
     %Normalization of the 1S state:
@@ -353,12 +353,12 @@ function [E1P]=CdSeCdS_E1PH1S(VXe,me,Uh,lengsim,delr)
     
     % MATLAB doesn't necessary present the eigenvalues and vectors in order. 
     % This part of the code addresses that:
-    [d_sorted, idx] = sort(diag(D), 'ascend');
-    Dsp = diag(d_sorted);
+    [d_notserp, idx] = sort(diag(D), 'ascend');
+    Eensp = diag(d_notserp);
     Vsp = V(:, idx);
     
     %Lowest energy eigenvalue and eigenvector:
-    E1P=Dsp(1,1);
+    E1P=Eensp(1,1);
     WF_E1PH1S=Vsp(:,1)/Vsp(1,1); %this is done to flip the WF over if it is negative
     norm1=0.0;
     for j=1:lengsim 
@@ -426,12 +426,12 @@ function [E2S]=CdSeCdS_E2SH1S(VXe,me,Uh,lengsim,delr)
     [V, D] = eigs(sparse(q), 15, 0);
     
     %This part of the code makes sure the eigenvalues and vectors are in order
-    [d_sorted, idx] = sort(diag(D), 'ascend');
-    Ds = diag(d_sorted);
+    [d_notserp, idx] = sort(diag(D), 'ascend');
+    Eens = diag(d_notserp);
     Vs = V(:, idx);
     
     % 1st excited state eigenvalue and eigenvector:
-    E2S=Ds(2,2);
+    E2S=Eens(2,2);
     WF_E2SH1S=Vs(:,2)/Vs(1,2); %this is done to flip the WF over if it is negative
     
     %Normalization of the 2S state:
@@ -503,12 +503,12 @@ function [EH1S]=CdSeCdS_H1SE1S(VXh,mh,Ue,lengsim,delr)
     
     % MATLAB doesn't necessary present the eigenvalues and vectors in order. 
     % This part of the code addresses that:
-    [d_sorted, idx] = sort(diag(D), 'ascend');
-    Ds = diag(d_sorted);
+    [d_notserp, idx] = sort(diag(D), 'ascend');
+    Eens = diag(d_notserp);
     Vs = V(:, idx);
     
     %Lowest energy eigenvalue and eigenvector:
-    EH1S=Ds(1,1);
+    EH1S=Eens(1,1);
     WF_H1SE1S=Vs(:,1)/Vs(1,1); %this is done to flip the WF over if it is negative
     
     %Normalization of the 1S hole state:
@@ -580,12 +580,12 @@ function [EH1P]=CdSeCdS_H1SE1P(VXh,mh,UeP,lengsim,delr)
     
     % MATLAB doesn't necessary present the eigenvalues and vectors in order. 
     % This part of the code addresses that:
-    [d_sorted, idx] = sort(diag(D), 'ascend');
-    Ds = diag(d_sorted);
+    [d_notserp, idx] = sort(diag(D), 'ascend');
+    Eens = diag(d_notserp);
     Vs = V(:, idx);
     
     %Lowest energy eigenvalue and eigenvector:
-    EH1P=Ds(1,1);
+    EH1P=Eens(1,1);
     WF_H1SE1P=Vs(:,1)/Vs(1,1); %this is done to flip the WF over if it is negative
     
     %Normalization of the 1S state:
@@ -656,12 +656,12 @@ function [EH2S]=CdSeCdS_H1SE2S(VXh,mh,Ue,lengsim,delr)
     
     % MATLAB doesn't necessary present the eigenvalues and vectors in order. 
     % This part of the code addresses that:
-    [d_sorted, idx] = sort(diag(D), 'ascend');
-    Ds = diag(d_sorted);
+    [d_notserp, idx] = sort(diag(D), 'ascend');
+    Eens = diag(d_notserp);
     Vs = V(:, idx);
     
     % 1st excited state eigenvalue and eigenvector:
-    EH2S=Ds(1,1);
+    EH2S=Eens(1,1);
     WF_H1SE2S=Vs(:,1)/Vs(1,1); %this is done to flip the WF over if it is negative
     
     %Normalization of the 2S state:
