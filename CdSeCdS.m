@@ -207,16 +207,16 @@ dim = [.2 .5 .3 .3];
 str = 'Blue: E1S|H1S. Green: E1P|H1S. Red: E2S|H1S';
 annotation('textbox', dim, 'String', str, 'FitBoxToText', 'on'); 
 xlabel('r(nm)');ylabel('r^2*Y(r)^2');
-fprintf("Exciton energy 1Se|1Sh %f eV\n",EnergyE1SH1S);
-fprintf("Exciton energy 1Pe|1Sh %f eV\n",EnergyE1PH1S);
-fprintf("Exciton energy 2Se|1Sh %f eV\n",EnergyE2SH1S);
-fprintf("Bixciton energy 1Se1Se|1Sh1Sh %f Binding energy %f eV\n",BE1S1S,E1s1s+Eh1sh1s+2*E1sh1s);
-fprintf("Bixciton energy 1Pe(z)1Pe(z)|1Sh1Sh %f Binding energy %f eV\n",BE1PE1Pzz,E1p1pzz+Eh1ph1p+2*E1ph1p);
-fprintf("Bixciton energy 1Pe(z)1Pe(x,y)|1Sh1Sh %f Binding energy %f eV\n",BE1PE1Pzx,E1p1pzx+Eh1ph1p+2*E1ph1p);
-fprintf("Bixciton energy 2Se2Se|1Sh1Sh %f Binding energy %f eV\n",BE2SE2S,E2s2s+Eh2sh2s+2*E2sh2s);
-fprintf("Bixciton energy 2Se1Se|1Sh1Sh %f Binding energy %f eV\n",BE1SE2S,E1s2s+Eh1sh2s+1/2*E1sh2s+E2sh1s);
-fprintf("Bixciton energy 1Pe1Se|1Sh1Sh %f Binding energy %f eV \n",BE1SE1P,E1s1p+Eh1sh1p+1/2*E1sh1p+E1ph1s);
-fprintf("Bixciton energy 1Pe2Se|1Sh1Sh %f Binding energy %f eV\n",BE1PE2S,E1p2s+Eh1ph2s+1/2*E1ph2s+E2sh1p);
+fprintf("Exciton energy 1Se|1Sh %.3f eV\n",EnergyE1SH1S);
+fprintf("Exciton energy 1Pe|1Sh %.3f eV\n",EnergyE1PH1S);
+fprintf("Exciton energy 2Se|1Sh %.3f eV\n",EnergyE2SH1S);
+fprintf("Bixciton energy 1Se1Se|1Sh1Sh %.3f eV Binding energy %.3f eV\n",BE1S1S,E1s1s+Eh1sh1s+2*E1sh1s);
+fprintf("Bixciton energy 1Pe(z)1Pe(z)|1Sh1Sh %.3f eV. Binding energy %.3f eV\n",BE1PE1Pzz,E1p1pzz+Eh1ph1p+2*E1ph1p);
+fprintf("Bixciton energy 1Pe(z)1Pe(x,y)|1Sh1Sh %.3f eV. Binding energy %.3f eV\n",BE1PE1Pzx,E1p1pzx+Eh1ph1p+2*E1ph1p);
+fprintf("Bixciton energy 2Se2Se|1Sh1Sh %.3f eV. Binding energy %.3f eV\n",BE2SE2S,E2s2s+Eh2sh2s+2*E2sh2s);
+fprintf("Bixciton energy 2Se1Se|1Sh1Sh %.3f eV. Binding energy %.3f eV\n",BE1SE2S,E1s2s+Eh1sh2s+1/2*E1sh2s+E2sh1s);
+fprintf("Bixciton energy 1Pe1Se|1Sh1Sh %.3f eV. Binding energy %.3f eV \n",BE1SE1P,E1s1p+Eh1sh1p+1/2*E1sh1p+E1ph1s);
+fprintf("Bixciton energy 1Pe2Se|1Sh1Sh %.3f eV. Binding energy %.3f eV\n",BE1PE2S,E1p2s+Eh1ph2s+1/2*E1ph2s+E2sh1p);
 
 
 
@@ -879,4 +879,5 @@ Uh(:,3)=tempUh*(sig(lengsim-1)-sig(lengsim))/(tempUh(lengsim-1)-tempUh(lengsim))
 Uh(:,3)=Uh(:,3)-(Uh(lengsim,3)-sig(lengsim));
 
 save Uh Uh;
+
 end
